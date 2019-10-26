@@ -50,7 +50,7 @@ function userDataGet(data, callback){
         type: "post",
         contentType: "application/json",
         async: true,           //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
-        url: hostUrl + "userquery",    //请求发送到TestServlet处
+        url: hostUrl + "user/query",    //请求发送到TestServlet处
         data: sendMessageEdit(DEFAULT, data),
         dataType: "json",        //返回数据形式为json
         success: function (result) {
@@ -70,7 +70,7 @@ function userAdd(data){
         type: "post",
         contentType: "application/json",
         async: true,           //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
-        url: hostUrl + "useradd",    //请求发送到TestServlet处
+        url: hostUrl + "/user/add",    //请求发送到TestServlet处
         data: sendMessageEdit(DEFAULT, data),
         dataType: "json",        //返回数据形式为json
         success: function (result) {
@@ -90,7 +90,7 @@ function userDelete(data){
         type: "post",
         contentType: "application/json",
         async: true,           //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
-        url: hostUrl + "userdel",    //请求发送到TestServlet处
+        url: hostUrl + "/user/del",    //请求发送到TestServlet处
         data: sendMessageEdit(DEFAULT, data),
         dataType: "json",        //返回数据形式为json
         success: function (result) {
@@ -110,7 +110,7 @@ function userEdit(data){
         type: "post",
         contentType: "application/json",
         async: true,           //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
-        url: hostUrl + "userup",    //请求发送到TestServlet处
+        url: hostUrl + "/user/upd",    //请求发送到TestServlet处
         data: sendMessageEdit(DEFAULT, data),
         dataType: "json",        //返回数据形式为json
         success: function (result) {
@@ -130,7 +130,7 @@ function passwordReset(data){
         type: "post",
         contentType: "application/json",
         async: true,           //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
-        url: hostUrl + "resetpasswd",    //请求发送到TestServlet处
+        url: hostUrl + "/user/resetpwd",    //请求发送到TestServlet处
         data: sendMessageEdit(DEFAULT, data),
         dataType: "json",        //返回数据形式为json
         success: function (result) {
@@ -150,7 +150,7 @@ function passwordModify(data){
         type: "post",
         contentType: "application/json",
         async: true,           //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
-        url: hostUrl + "chgpasswd",    //请求发送到TestServlet处
+        url: hostUrl + "/user/chgpwd",    //请求发送到TestServlet处
         data: sendMessageEdit(DEFAULT, data),
         dataType: "json",        //返回数据形式为json
         success: function (result) {

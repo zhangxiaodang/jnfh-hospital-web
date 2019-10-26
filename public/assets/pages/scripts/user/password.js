@@ -18,14 +18,14 @@ var Password = function() {
                 opassword: {
                     required: true,
                     minlength: 6,
-                    maxlength: 12
+                    maxlength: 20
                 },
                 npassword: {
                     required: true,
-                    simple: true,
+                    //simple: true,
                     same: true,
                     minlength: 6,
-                    maxlength: 12
+                    maxlength: 20
                 },
                 rpassword: {
                     equalTo: "#npassword"
@@ -71,9 +71,9 @@ var Password = function() {
             }
         });
 
-        jQuery.validator.addMethod("simple", function(value, element) {
-            return passwordCheck(value);
-        }, "新密码过于简单");
+        // jQuery.validator.addMethod("simple", function(value, element) {
+        //     return passwordCheck(value);
+        // }, "新密码过于简单");
 
         jQuery.validator.addMethod("same", function(value, element) {
             return value != $("#oldpassword").val();
@@ -82,7 +82,9 @@ var Password = function() {
         $('#password_modify').click(function() {
             if ($('.password-form').validate().form()) {
                 var data = $('.password-form').getFormData();
+                var uid = localStorage.getItem("uid");
                 var user = {
+                    uid: uid,
                     oldpassword: data.opassword,
                     newpassword: data.npassword
                 };

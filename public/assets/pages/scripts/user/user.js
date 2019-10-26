@@ -192,7 +192,7 @@ var UserEdit = function() {
             $(".modal-title").text("编辑用户");
             var exclude = [];
             var row = $(this).parents('tr')[0];
-            var userid = $("#user_table").dataTable().fnGetData(row).userid;
+            var userid = $("#user_table").dataTable().fnGetData(row).uid;
             var user = new Object();
             for(var i=0; i < userList.length; i++){
                 if(userid == userList[i].uid){
@@ -202,7 +202,7 @@ var UserEdit = function() {
             var options = { jsonValue: user, exclude:exclude,isDebug: false};
             $(".register-form").initForm(options);
             //用户代码不可以输入
-            $(".register-form").find("input[name=userid]").attr("readonly", true);
+            $(".register-form").find("input[name=uid]").attr("readonly", true);
             $("input[name=edittype]").val(USEREDIT);
             $('#edit_user').modal('show');
         });
@@ -249,7 +249,7 @@ var PasswordRest = function() {
             var password = hex_md5("123456");
             var userlist = {uidlist:[], password:password};
             $(".checkboxes:checked").parents("td").each(function () {
-                userlist.uidlist.push($(this).siblings().eq(0).text());
+                userlist.uidlist.push($(this).siblings().eq(1).text());
             });
             passwordReset(userlist);
         },
@@ -266,9 +266,8 @@ function getUserDataEnd(flg, result, callback){
     if(flg){
         if (result && result.retcode == SUCCESS) {
 
-            var res = result.response;
-            userList = res.userlist;
-            tableDataSet(res.draw, res.totalcount, res.totalcount, res.userlist, callback);
+            userList = result.userlist;
+            tableDataSet(result.draw, result.totalcount, result.totalcount, result.userlist, callback);
         }else{
             tableDataSet(0, 0, 0, [], callback);
             alertDialog("用户信息获取失败！");
