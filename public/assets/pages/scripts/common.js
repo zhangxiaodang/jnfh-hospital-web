@@ -2,25 +2,22 @@
  * Created by Administrator on 2019/2/19.
  */
 function sendMessageEdit(type, data){
-    var head, request;
-    head = msgHeadMake(type);
+    // var head, request;
+    // head = msgHeadMake(type);
+    var oJson = {};
     switch(type){
         case LOGIN:
-            head["token"] = "";
-            head["uid"] = data[0];
-            request = {
-                "password":data[1]
-            };
+            oJson["uid"] = data[0];
+            oJson["password"] = data[1];
             break;
         default :
-            request = data;
+            oJson = data;
             break;
     }
-    request = {
-        "request":request
-    };
-    request = $.extend({},request,head);
-    var oJson = request;
+    // request = {
+    //     "request":request
+    // };
+    // request = $.extend({},request,head);
     console.info(oJson);
     return JSON.stringify(oJson);
 }

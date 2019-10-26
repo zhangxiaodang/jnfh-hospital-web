@@ -4,6 +4,7 @@
 var hostIP = "60.216.52.194";
 //var hostUrl = "http://172.16.7.127:8888/wldp/web/front/";
 var hostUrl = "http://127.0.0.1:8000/web/";
+var loginUrl = "http://172.16.7.127:8888/wldp/web/";
 var SUCCESS = "0000";
 
 var DEFAULT = 0;

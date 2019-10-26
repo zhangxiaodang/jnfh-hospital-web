@@ -8,7 +8,7 @@ var Login = function() {
             errorClass: 'help-block', // default input error message class
             focusInvalid: false, // do not focus the last invalid input
             rules: {
-                username: {
+                uid: {
                     required: true
                 },
                 password: {
@@ -20,7 +20,7 @@ var Login = function() {
             },
 
             messages: {
-                username: {
+                uid: {
                     required: "用户名必须输入."
                 },
                 password: {
@@ -60,7 +60,7 @@ var Login = function() {
                 if ($('.login-form').validate().form()) {
                     //校验用户名和密码
                     var logData = $('.login-form').getFormData();
-                    loginCheck([logData.username, hex_md5(logData.password)]);
+                    loginCheck([logData.uid, hex_md5(logData.password)]);
                 }
                 return false;
             }
@@ -70,7 +70,7 @@ var Login = function() {
             if ($('.login-form').validate().form()) {
                 //校验用户名和密码
                 var logData = $('.login-form').getFormData();
-                loginCheck([logData.username, hex_md5(logData.password)]);
+                loginCheck([logData.uid, hex_md5(logData.password)]);
             }
         });
     };
@@ -86,9 +86,9 @@ function loginCheckEnd(flg, result){
     if(flg){
         if (result && result.retcode == SUCCESS){
             //进入主页面
-            localStorage.setItem("uid", result.response.uid);
-            localStorage.setItem("uname", result.response.uname);
-            loginSubmit(result.response);
+            localStorage.setItem("uid", result.uid);
+            localStorage.setItem("uname", result.uname);
+            loginSubmit(result);
         }else{
             $('.alert-danger', $('.login-form')).show();
             $('.alert-danger span', $('.login-form')).text(result.retmsg);
