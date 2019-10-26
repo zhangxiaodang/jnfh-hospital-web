@@ -13,7 +13,6 @@ function loginCheck(data){
         success: function (result) {
             console.info("loginCheck:" + JSON.stringify(result));
             loginCheckEnd(true, result);
-
         },
         error: function (errorMsg) {
             console.info("loginCheck-error:" + JSON.stringify(errorMsg));
