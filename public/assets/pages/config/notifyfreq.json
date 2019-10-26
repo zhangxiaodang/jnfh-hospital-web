@@ -1,0 +1,22 @@
+[
+    {
+        "periodno":"0",
+        "periodname":"不重复发送",
+        "code":""
+    },
+    {
+        "periodno":"1",
+        "periodname":"每天9点、15点发送",
+        "code":""
+    },
+    {
+        "periodno":"2",
+        "periodname":"每天9点发送",
+        "code":""
+    },
+    {
+        "periodno":"3",
+        "periodname":"隔天9点发送",
+        "code":""
+    }
+]

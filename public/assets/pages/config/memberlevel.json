@@ -1,0 +1,34 @@
+[
+    {
+        "levelno":"1",
+        "levelname":"会长单位"
+    },
+    {
+        "levelno":"2",
+        "levelname":"副会长单位"
+    },
+    {
+        "levelno":"3",
+        "levelname":"理事单位"
+    },
+    {
+        "levelno":"4",
+        "levelname":"监事"
+    },
+    {
+        "levelno":"5",
+        "levelname":"副会长单位"
+    },
+    {
+        "levelno":"6",
+        "levelname":"普通会员"
+    },
+    {
+        "levelno":"7",
+        "levelname":"特邀会员"
+    },
+    {
+        "levelno":"8",
+        "levelname":"其他"
+    }
+]

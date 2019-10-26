@@ -1,0 +1,123 @@
+body{
+    font-family: PingFangSC,helvetica neue,hiragino sans gb,arial,microsoft yahei ui,microsoft yahei,simsun,sans-serif!important;'20px/1.5 微软雅黑', Tahoma, '微软雅黑'!important;
+    font-weight: 300;
+    font-size: 15px!important;
+    letter-spacing: 0.5px;
+}
+
+.page-sidebar-menu a, .page-sidebar-menu span{
+    font-size: 15px!important;
+}
+
+.toLong{
+    width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+div.toLong:hover{
+    text-overflow:inherit;
+    overflow: visible;
+    white-space: pre-line;
+}
+
+table.dataTable thead th, table.dataTable thead td{
+    padding: 8px 3px!important;
+    text-align: center!important;
+    border-top: 1px solid #ddd!important;
+}
+
+table.dataTable thead th:last-child, table.dataTable thead td:last-child{
+    border-right: 1px solid #ddd!important;
+}
+
+table.dataTable tbody th:last-child, table.dataTable tbody td:last-child{
+    border-right: 1px solid #ddd!important;
+}
+
+table.dataTable thead th:first-child, table.dataTable thead td:first-child{
+    border-left: 1px solid #ddd!important;
+}
+
+table.dataTable tbody th:first-child, table.dataTable tbody td:first-child{
+    border-left: 1px solid #ddd!important;
+}
+::-webkit-scrollbar
+{
+    width: 4px;
+    height: 16px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar:horizontal
+{
+    height: 2px;
+    background-color: #F5F5F5;
+}
+/*定义滚动条轨道 内阴影+圆角*/
+::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
+
+/*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+}
+.tree-under-input{
+    position:absolute;
+    background-color: white;
+    z-index:1010;
+    width: 91%;
+    height: 200px;
+    overflow: auto;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+}
+
+.dropzone-custom{
+    border: 1px solid #c2cad8!important;
+    min-height: 107px!important;
+}
+
+.ms-container{
+    width: 96%!important;
+}
+
+.ms-container ul{
+    border: 1px solid #c2cad8!important;
+}
+
+.item-box{
+    border: 1px solid #c2cad8!important;
+    cursor: pointer;
+    /*margin-right: -0.5rem!important*/;
+    margin-bottom: 0.5rem!important;
+}
+.item-box-active{
+    border: 1px solid blue!important;
+    color: red!important
+}
+
+.button-upload input {
+    position: absolute;
+    top: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    cursor: pointer;
+    width: 80px;
+    height: fit-content;
+}
+
+.button-upload:hover {
+    color: #444;
+    background: #eee;
+    border-color: #ccc;
+    text-decoration: none
+}

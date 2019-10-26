@@ -1,0 +1,35 @@
+{
+    "appenders": {
+        "rule-info": {
+            "type": "dateFile",
+            "filename": "logs/access-",
+            "pattern": "yyyy-MM-dd.log",
+            "encoding": "utf-8",
+            "maxLogSize": 10000000,
+            "numBackups": 10,
+            "alwaysIncludePattern": true
+
+        },
+        "rule-console": {
+            "type": "console"
+        }
+    },
+
+    "categories": {
+        "default": {
+            "appenders": [
+                "rule-console"
+            ],
+            "level": "debug"
+
+        },
+
+        "http": {
+            "appenders": [
+                "rule-info"
+            ],
+            "level": "info"
+        }
+
+    }
+}

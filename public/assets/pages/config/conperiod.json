@@ -1,0 +1,14 @@
+[
+    {
+        "periodno":"1",
+        "periodname":"报名中"
+    },
+    {
+        "periodno":"2",
+        "periodname":"进行中"
+    },
+    {
+        "periodno":"3",
+        "periodname":"结束"
+    }
+]

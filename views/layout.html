@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+    <!--<![endif]-->
+    <!-- BEGIN HEAD -->
+
+    <head>
+        <meta charset="utf-8" />
+        <title>济宁凤凰怡康医院</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta content="" name="description" />
+        <meta content="" name="author" />
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <link href="/public/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <link href="/public/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="/public/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/public/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <link href="/public/assets/pages/css/index_query.css" rel="stylesheet" type="text/css" />
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL STYLES -->
+        <link href="/public/assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
+        <link href="/public/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
+        <!-- END THEME GLOBAL STYLES -->
+        <!-- BEGIN THEME LAYOUT STYLES -->
+        <link href="/public/assets/layouts/layout/css/layout.min.css" rel="stylesheet" type="text/css" />
+        <link href="/public/assets/layouts/layout/css/themes/darkblue.min.css" rel="stylesheet" type="text/css" id="style_color" />
+        <link href="/public/assets/layouts/layout/css/custom.min.css" rel="stylesheet" type="text/css" />
+        <!-- END THEME LAYOUT STYLES -->
+        <link rel="shortcut icon" type="image/x-icon" href="/public/assets/pages/img/favicon.ico" />
+        <!--[if lt IE 9]>
+        <script src="/public/assets/global/plugins/respond.min.js"></script>
+        <script src="/public/assets/global/plugins/excanvas.min.js"></script>
+        <![endif]-->
+        <!-- BEGIN CORE PLUGINS -->
+        <script src="/public/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+        <script src="/public/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <!-- END CORE PLUGINS -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <script src="/public/assets/global/plugins/jquery-validation/js/jquery.validate.js" type="text/javascript"></script>
+        <script src="/public/assets/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
+        <script src="/public/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL SCRIPTS -->
+        <script src="/public/assets/global/scripts/app.min.js" type="text/javascript"></script>
+        <!-- END THEME GLOBAL SCRIPTS -->
+        <!-- BEGIN PAGE LEVEL SCRIPTS -->
+        <script src="/public/assets/pages/scripts/form.js" type="text/javascript"></script>
+        <script src="/public/assets/pages/scripts/const.js" type="text/javascript"></script>
+        <script src="/public/assets/pages/scripts/common.js" type="text/javascript"></script>
+        <script src="/public/assets/pages/scripts/data.js" type="text/javascript"></script>
+        <script src="/public/assets/pages/scripts/menu.js" type="text/javascript"></script>
+        <!-- END PAGE LEVEL SCRIPTS -->
+        <!-- BEGIN THEME LAYOUT SCRIPTS -->
+        <script src="/public/assets/layouts/layout/scripts/layout.min.js" type="text/javascript"></script>
+        <script src="/public/assets/layouts/layout/scripts/demo.min.js" type="text/javascript"></script>
+        <script src="/public/assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
+        <!-- END THEME LAYOUT SCRIPTS -->
+        <!-- END HEAD -->
+        <script>
+            var menu = '{{ menu }}';
+            var loginSucc = '{{ loginsucc }}';
+            loginSucc = JSON.parse(loginSucc.replace(/&quot;/g, "\""));
+            jQuery(document).ready(function(){
+                makeMenu(userMenuList.menulist);
+                $(".page-sidebar-menu").html(menuMake);
+                if($('.page-sidebar-menu').children('.active') != $('.page-sidebar-menu').find('a[href="' + menu + '"]').parents('li.nav-item')){
+                    $('.page-sidebar-menu').find('.active').removeClass("active open");
+                    $('.page-sidebar-menu').find('.open').removeClass("open");
+                    $('.page-sidebar-menu').find('.selected').remove();
+                }
+                $('.page-sidebar-menu').find('a[href="' + menu + '"]').parents('li.nav-item').addClass('active open');
+                $('.page-sidebar-menu').find('a[href="' + menu + '"]').parents('li.nav-item').siblings().first().addClass('active open');
+                $('.page-sidebar-menu').find('a[href="' + menu + '"]').parents().siblings('.nav-toggle').children('.arrow').addClass('open');
+                $('.page-sidebar-menu').find('a[href="' + menu + '"]').parents().siblings('.nav-toggle').append('<span class="selected"></span>');
+                var title = $('.page-sidebar-menu').find('a[href="' + menu + '"]').children(".title").text();
+                if(title === "") title = "首页";
+                document.title = "济宁凤凰怡康医院 | " + title;
+                $("#fullname").text(loginSucc.uname);
+                $("#main, #logo").attr("href","main?uname=" + loginSucc.uid);
+                $("#passowrd").attr("href","password?uname=" + loginSucc.uid);
+                //var text = '<li><a href="main">首页</a><i class="fa fa-circle"></i></li>';
+                if(menu != "main"){
+                    var text = $('.page-sidebar-menu').find('a[href="' + menu + '"]').children('.title').text();
+                    $('#menu_tips').html(text);
+                }
+
+                //退出登录
+                $("#logout").on("click", function(){
+                    logoutCheck({uid:loginSucc.uid});
+                });
+            });
+
+        </script>
+    <body class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid page-content-white">
+        <!-- BEGIN HEADER -->
+        <div class="page-header navbar navbar-fixed-top">
+            <!-- BEGIN HEADER INNER -->
+            <div class="page-header-inner ">
+                <!-- BEGIN LOGO -->
+                <div class="page-logo">
+                    <div class="page-logo" style="padding-left:5px; ">
+                        <a href="/" id="logo">
+                            <div class="logo-default" style="color: white; font-size: 15px; margin-top: -15px">
+                                <div style="display: inline; float: left; margin-left: -5px"><img src="/public/assets/pages/img/logo.png" style="width: 180px;"></div>
+                            </div>
+                        </a>
+                        <div class="menu-toggler sidebar-toggler">
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- END LOGO -->
+                <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+                <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span></span>
+                </a>
+                <!-- END RESPONSIVE MENU TOGGLER -->
+                <!-- BEGIN TOP NAVIGATION MENU -->
+                <div class="top-menu">
+                    <ul class="nav navbar-nav pull-right">
+                        <!-- BEGIN USER LOGIN DROPDOWN -->
+                        <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                        <li class="dropdown dropdown-user">
+                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                <img alt="" class="img-circle" id="img" src="">
+                                <span class="username username-hide-on-mobile"> 欢迎光临 <span id="fullname"></span> </span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-default">
+                                <li>
+                                    <a href="password" id="passowrd">
+                                        <i class="icon-lock"></i> 修改密码 </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;" id="logout">
+                                        <i class="icon-key"></i> 退出系统 </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- END USER LOGIN DROPDOWN -->
+                    </ul>
+                </div>
+                <!-- END TOP NAVIGATION MENU -->
+            </div>
+            <!-- END HEADER INNER -->
+        </div>
+        <div class="page-container">
+            <!-- BEGIN SIDEBAR -->
+            <div class="page-sidebar-wrapper">
+                <div class="page-sidebar navbar-collapse collapse sidebar">
+                    <!-- BEGIN SIDEBAR MENU -->
+                    <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+                    <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+                    <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+                    <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+                    <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+                    <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+                    <ul class="page-sidebar-menu page-header-fixed" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+
+                    </ul>
+                </div>
+            </div>
+            <!-- END SIDEBAR -->
+            <!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+                <div class="page-content" id="lay-out">
+                    <div class="page-bar">
+                        <ul class="page-breadcrumb">
+                            <li>
+                                <i class="icon-home"></i>
+                                <a href="/" id="main">首页</a>
+                                <i class="fa fa-circle"></i>
+                            </li>
+                            <li>
+                                <span id="menu_tips"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <h3 class="page-title">
+                        <small></small>
+                    </h3>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                            {%block main%}{%endblock%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="javascript:;" class="page-quick-sidebar-toggler">
+                <i class="icon-login"></i>
+            </a>
+        </div>
+
+        <!-- BEGIN FOOTER -->
+        <div class="page-footer" id="ft">
+            <div class="page-footer-inner"> 2019 &copy; 济宁凤凰怡康医院  </div>
+            <div class="scroll-to-top">
+                <i class="icon-arrow-up"></i>
+            </div>
+        </div>
+        <!-- END FOOTER -->
+    </body>
+
+</html>

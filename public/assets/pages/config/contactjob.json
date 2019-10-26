@@ -1,0 +1,14 @@
+[
+    {
+        "jobno":"1",
+        "jobname":"老板"
+    },
+    {
+        "jobno":"2",
+        "jobname":"主任"
+    },
+    {
+        "jobno":"3",
+        "jobname":"员工"
+    }
+]
