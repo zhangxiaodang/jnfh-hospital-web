@@ -90,10 +90,12 @@ function loginCheckEnd(flg, result){
             localStorage.setItem("uname", result.uname);
             loginSubmit(result);
         }else{
+            App.unblockUI('.login-container');
             $('.alert-danger', $('.login-form')).show();
             $('.alert-danger span', $('.login-form')).text(result.retmsg);
         }
     }else{
+        App.unblockUI('.login-container');
         $('.alert-danger', $('.login-form')).show();
         $('.alert-danger span', $('.login-form')).text("登录失败");
     }
