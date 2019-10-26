@@ -92,16 +92,10 @@ function loginCheckEnd(flg, result){
         }else{
             $('.alert-danger', $('.login-form')).show();
             $('.alert-danger span', $('.login-form')).text(result.retmsg);
-            return;
         }
     }else{
         $('.alert-danger', $('.login-form')).show();
         $('.alert-danger span', $('.login-form')).text("登录失败");
-        data = {
-            uid:"000",
-            uname:"111"
-        };
-        loginSubmit(data);
     }
 }
 
