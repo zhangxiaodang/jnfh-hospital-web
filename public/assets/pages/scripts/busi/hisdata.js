@@ -18,7 +18,7 @@ var HisTable = function () {
             "bStateSave": false,
             "lengthMenu": TableLengthMenu,
             "destroy": true,
-            "pageLength": PageLength,
+            "pageLength": 30,
             "pagingType": "bootstrap_extended",
             "serverSide": true,
             "processing": true,
@@ -74,8 +74,8 @@ function getBedDataEnd(flg, result, callback){
     App.unblockUI('#lay-out');
     if(flg){
         if (result && result.retcode == SUCCESS) {
-            var res = result.response;
-            tableDataSet(res.draw, res.totalcount, res.totalcount, res.bedlist, callback);
+            //var res = result.response;
+            tableDataSet(result.draw, result.totalcount, result.totalcount, result.bedlist, callback);
         }else{
             tableDataSet(0, 0, 0, [], callback);
             alertDialog("HIS信息获取失败！");
