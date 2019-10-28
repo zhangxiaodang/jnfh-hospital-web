@@ -104,7 +104,7 @@ function loginCheckEnd(flg, result){
 function loginSubmit(data){
     var form = $(".login-form");
     form[0].action = "login";
-    form.append($("<input/>").attr("type", "hidden").attr("name", "uname").attr("value", data.uid));
+    //form.append($("<input/>").attr("type", "hidden").attr("name", "uid").attr("value", data.uid));
     form.append($("<input/>").attr("type", "hidden").attr("name", "loginsucc").attr("value", JSON.stringify(data)));
     form.submit();
     App.unblockUI('.login-container');

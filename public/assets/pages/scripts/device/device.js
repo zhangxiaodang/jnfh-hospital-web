@@ -7,9 +7,10 @@ var responseComplete = [0, 0];   //终端信息和机构全部返回
 if (App.isAngularJsApp() === false) {
     jQuery(document).ready(function() {
         //获取所有床位号
-        bedDataGet(null, null);
+        //bedDataGet(null, null);
         //新增编辑终端控件初始化
         DeviceEdit.init();
+        DeviceBind.init();
         //获取终端信息
         DeviceTable.init();
     });
@@ -49,7 +50,6 @@ var DeviceTable = function () {
                 { "data": "devno" },
                 { "data": "bedno" },
                 { "data": "ip" },
-                { "data": "mac" },
                 { "data": "online" },
                 { "data": "disable" },
                 { "data": null }
@@ -69,7 +69,7 @@ var DeviceTable = function () {
                     }
                 },
                 {
-                    "targets": [6],
+                    "targets": [5],
                     "data": null,
                     "render": function (data, type, row, meta) {
                         var online = "离线";
@@ -78,7 +78,7 @@ var DeviceTable = function () {
                     }
                 },
                 {
-                    "targets": [7],
+                    "targets": [6],
                     "data": null,
                     "render": function (data, type, row, meta) {
                         var disable = "否";
@@ -87,9 +87,9 @@ var DeviceTable = function () {
                     }
                 },
                 {
-                    "targets": [8],
+                    "targets": [7],
                     "render": function (data, type, row, meta) {
-                        return '<a href="javascript:;" id="op_edit">编辑</a>';
+                        return '<a href="javascript:;" id="op_edit">编辑</a> | <a href="javascript:;" id="bed_bind">终端绑定</a>';
                     }
                 }
             ],
@@ -137,9 +137,6 @@ var DeviceEdit = function() {
                 devno: {
                     required: true
                 },
-                bedno: {
-                    required: true
-                },
                 disable: {
                     required: true
                 }
@@ -148,10 +145,6 @@ var DeviceEdit = function() {
             messages: {
                 devno: {
                     required: "设备编号必须输入"
-                },
-
-                bedno: {
-                    required: "床位号必须输入"
                 },
                 disable: {
                     required: "是否禁用必须输入"
@@ -192,11 +185,11 @@ var DeviceEdit = function() {
             btnDisable($('#register-btn'));
             if ($('.register-form').validate().form()) {
                 var device = $('.register-form').getFormData();
-            }
-            if($("input[name=edittype]").val() == DEVICEADD){
-                deviceAdd(device);
-            }else {
-                deviceEdit(device);
+                if($("input[name=edittype]").val() == DEVICEADD){
+                    deviceAdd(device);
+                }else {
+                    deviceEdit(device);
+                }
             }
         });
         //新增终端
@@ -244,6 +237,103 @@ var DeviceEdit = function() {
     };
 }();
 
+var DeviceBind = function() {
+    var handleRegister = function() {
+        var validator = $('.bind-form').validate({
+            errorElement: 'span', //default input error message container
+            errorClass: 'help-block', // default input error message class
+            focusInvalid: false, // do not focus the last invalid input
+            ignore: "",
+            rules: {
+                devno: {
+                    required: true
+                },
+                department: {
+                    required: true
+                },
+                bedno: {
+                    required: true,
+                    maxlength: 6,
+                    minlength: 6,
+                    digits: true
+                }
+            },
+
+            messages: {
+                devno: {
+                    required: "设备编号必须输入"
+                },
+                department: {
+                    required: "科室名称必须输入"
+                },
+                bedno: {
+                    required: "关联床位号必须输入"
+                }
+            },
+
+            invalidHandler: function(event, validator) { //display error alert on form submit
+
+            },
+
+            highlight: function(element) { // hightlight error inputs
+                $(element)
+                    .closest('.form-group').addClass('has-error'); // set error class to the control group
+            },
+
+            success: function(label) {
+                label.closest('.form-group').removeClass('has-error');
+                label.remove();
+            },
+
+            errorPlacement: function(error, element) {
+                if (element.attr("name") == "tnc") { // insert checkbox errors after the container
+                    error.insertAfter($('#register_tnc_error'));
+                } else if (element.closest('.input-icon').size() === 1) {
+                    error.insertAfter(element.closest('.input-icon'));
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+
+            submitHandler: function(form) {
+                form.submit();
+            }
+        });
+
+        //点击确定按钮
+        $('#bind-btn').click(function() {
+            btnDisable($('#bind-btn'));
+            if ($('.bind-form').validate().form()) {
+                var device = $('.bind-form').getFormData();
+                deviceBind(device);
+            }
+        });
+        //关联床位号
+        $('#device_table').on('click', '#bed_bind', function (e) {
+            e.preventDefault();
+            //清除校验错误信息
+            validator.resetForm();
+            $(".bind-form").find(".has-error").removeClass("has-error");
+            var exclude = [];
+            var row = $(this).parents('tr')[0];
+            var devno = $("#device_table").dataTable().fnGetData(row).devno;
+            var device = new Object();
+            for(var i=0; i < deviceList.length; i++){
+                if(devno == deviceList[i].devno){
+                    device = deviceList[i];
+                }
+            }
+            var options = { jsonValue: device, exclude:exclude,isDebug: false};
+            $(".bind-form").initForm(options);
+            $('#bind_device').modal('show');
+        });
+    };
+    return {
+        init: function() {
+            handleRegister();
+        }
+    };
+}();
 
 var DeviceDelete = function() {
     $('#op_del').click(function() {
@@ -258,7 +348,9 @@ var DeviceDelete = function() {
         deleteDevice: function(){
             var devicelist = {devnolist:[]};
             $(".checkboxes:checked").parents("td").each(function () {
-                devicelist.devnolist.push($(this).siblings().eq(1).text());
+                var row = $(this).parents('tr')[0];     //通过获取该td所在的tr，即td的父级元素，取出第一列序号元素
+                var rowData = $("#material_table").dataTable().fnGetData(row);
+                devicelist.devnolist.push(rowData.devno);
             });
             deviceDelete(devicelist);
         }
@@ -269,7 +361,6 @@ function getDeviceDataEnd(flg, result, callback){
     App.unblockUI('#lay-out');
     if(flg){
         if (result && result.retcode == SUCCESS) {
-
             var res = result.response;
             deviceList = res.devicelist;
             tableDataSet(res.draw, res.totalcount, res.totalcount, res.devicelist, callback);
@@ -280,16 +371,6 @@ function getDeviceDataEnd(flg, result, callback){
     }else{
         tableDataSet(0, 0, 0, [], callback);
         alertDialog("终端信息获取失败！");
-    }
-}
-
-function getBedDataEnd(flg, result, callback){
-    App.unblockUI('#lay-out');
-    if(flg){
-        if (result && result.retcode == SUCCESS) {
-            var bedlist = result.response.bedlist;
-            bedNoSelectBuild(bedlist);
-        }
     }
 }
 
@@ -307,6 +388,9 @@ function deviceInfoEditEnd(flg, result, type){
         case DEVICEDELETE:
             text = "删除";
             break;
+        case DEVICEBIND:
+            text = "绑定";
+            break;
     }
     if(flg){
         if(result && result.retcode != SUCCESS){
@@ -316,21 +400,12 @@ function deviceInfoEditEnd(flg, result, type){
             res = "成功";
             DeviceTable.init();
             $('#edit_device').modal('hide');
+            $('#bind_device').modal('hide');
         }
     }
     if(alert == "") alert = text + "终端" + res + "！";
     App.unblockUI('#lay-out');
     alertDialog(alert);
-}
-
-function bedNoSelectBuild(list){
-    var id = $("#bednoquery, #bedno");
-    id.empty();
-    for (var i = list.length - 1;  i >=0 ; i--) {
-        id.prepend('<option value="' + list[i].bedno + '">' + list[i].bedno + '</option>');
-    }
-    id.prepend('<option value="" selected>请选择</option>');
-    id.selectpicker('refresh');
 }
 
 $("#device_inquiry").on("click", function(){

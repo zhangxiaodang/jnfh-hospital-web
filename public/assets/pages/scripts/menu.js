@@ -27,7 +27,7 @@ function makeMenu(data){
                     '<ul class="sub-menu">'
         }else{
             menuMake += '<li class="nav-item">' +
-                '<a href="' + data[i].url + '?uname=' + loginSucc.uid + '" class="nav-link nav-toggle" data-id="' + data[i].menuid + '">' +
+                '<a href="' + data[i].url + '?uid=' + loginSucc.uid + '" class="nav-link nav-toggle" data-id="' + data[i].menuid + '">' +
                     '<i class="'+ data[i].menuicon +'"></i>' +
                     '<span class="title"> '+ data[i].menuname +' </span>' +
                 '</a>'

@@ -81,8 +81,8 @@
                 if(title === "") title = "首页";
                 document.title = "济宁凤凰怡康医院 | " + title;
                 $("#fullname").text(loginSucc.uname);
-                $("#main, #logo").attr("href","main?uname=" + loginSucc.uid);
-                $("#passowrd").attr("href","password?uname=" + loginSucc.uid);
+                $("#main, #logo").attr("href","main?uid=" + loginSucc.uid);
+                $("#passowrd").attr("href","password?uid=" + loginSucc.uid);
                 //var text = '<li><a href="main">首页</a><i class="fa fa-circle"></i></li>';
                 if(menu != "main"){
                     var text = $('.page-sidebar-menu').find('a[href="' + menu + '"]').children('.title').text();

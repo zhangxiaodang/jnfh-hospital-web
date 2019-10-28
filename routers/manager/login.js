@@ -11,22 +11,29 @@ router.get('/',function(req,res,next){
 
 router.post('/login',function(req,res,next){
     console.info(req.body);
-    var uname = req.body.uname;
-    req.session["jnfhUname" + uname] = uname;
-    req.session["jnfhLogin" + uname] = req.body.loginsucc;
+    var uid = req.body.uid;
+    req.session["jnfhUname" + uid] = uid;
+    req.session["jnfhLogin" + uid] = req.body.loginsucc;
     res.render('main', {
         menu: 'main',
-        loginsucc: req.session["jnfhLogin" + uname]
+        loginsucc: req.session["jnfhLogin" + uid]
     });
+});
+
+router.get('/logout',function(req,res,next){
+    console.info(req.body);
+    var uid = req.query.uid;
+    req.session["jnfhUname" + uid] = "";
+    res.redirect('/');
 });
 
 router.get('/main',function(req,res,next){
     console.info(req.url);
-    var uname = req.query.uname;
-    if(req.session["jnfhUname" + uname]) {  //判断session 状态，如果有效，则返回主页，否则转到登录页面
+    var uid = req.query.uid;
+    if(req.session["jnfhUname" + uid]) {  //判断session 状态，如果有效，则返回主页，否则转到登录页面
         res.render('main', {
             menu: req.url.substr(1),
-            loginsucc: req.session["jnfhLogin" + uname]
+            loginsucc: req.session["jnfhLogin" + uid]
         });
     }else{
         res.redirect('/');
@@ -35,11 +42,11 @@ router.get('/main',function(req,res,next){
 
 router.get('/user',function(req,res,next){
     console.info(req.url);
-    var uname = req.query.uname;
-    if(req.session["jnfhUname" + uname]) {  //判断session 状态，如果有效，则返回主页，否则转到登录页面
+    var uid = req.query.uid;
+    if(req.session["jnfhUname" + uid]) {  //判断session 状态，如果有效，则返回主页，否则转到登录页面
         res.render('user/user', {
             menu: req.url.substr(1),
-            loginsucc: req.session["jnfhLogin" + uname]
+            loginsucc: req.session["jnfhLogin" + uid]
         });
     }else{
         res.redirect('/');
@@ -48,11 +55,11 @@ router.get('/user',function(req,res,next){
 
 router.get('/password',function(req,res,next){
     console.info(req.url);
-    var uname = req.query.uname;
-    if(req.session["jnfhUname" + uname]) {  //判断session 状态，如果有效，则返回主页，否则转到登录页面
+    var uid = req.query.uid;
+    if(req.session["jnfhUname" + uid]) {  //判断session 状态，如果有效，则返回主页，否则转到登录页面
         res.render('user/password', {
             menu: req.url.substr(1),
-            loginsucc: req.session["jnfhLogin" + uname]
+            loginsucc: req.session["jnfhLogin" + uid]
         });
     }else{
         res.redirect('/');
@@ -61,11 +68,11 @@ router.get('/password',function(req,res,next){
 
 router.get('/device',function(req,res,next){
     console.info(req.url);
-    var uname = req.query.uname;
-    if(req.session["jnfhUname" + uname]) {  //判断session 状态，如果有效，则返回主页，否则转到登录页面
+    var uid = req.query.uid;
+    if(req.session["jnfhUname" + uid]) {  //判断session 状态，如果有效，则返回主页，否则转到登录页面
         res.render('device/device', {
             menu: req.url.substr(1),
-            loginsucc: req.session["jnfhLogin" + uname]
+            loginsucc: req.session["jnfhLogin" + uid]
         });
     }else{
         res.redirect('/');
@@ -74,11 +81,11 @@ router.get('/device',function(req,res,next){
 
 router.get('/material',function(req,res,next){
     console.info(req.url);
-    var uname = req.query.uname;
-    if(req.session["jnfhUname" + uname]) {  //判断session 状态，如果有效，则返回主页，否则转到登录页面
+    var uid = req.query.uid;
+    if(req.session["jnfhUname" + uid]) {  //判断session 状态，如果有效，则返回主页，否则转到登录页面
         res.render('busi/material', {
             menu: req.url.substr(1),
-            loginsucc: req.session["jnfhLogin" + uname]
+            loginsucc: req.session["jnfhLogin" + uid]
         });
     }else{
         res.redirect('/');
@@ -87,11 +94,11 @@ router.get('/material',function(req,res,next){
 
 router.get('/hisdata',function(req,res,next){
     console.info(req.url);
-    var uname = req.query.uname;
-    if(req.session["jnfhUname" + uname]) {  //判断session 状态，如果有效，则返回主页，否则转到登录页面
+    var uid = req.query.uid;
+    if(req.session["jnfhUname" + uid]) {  //判断session 状态，如果有效，则返回主页，否则转到登录页面
         res.render('busi/hisdata', {
             menu: req.url.substr(1),
-            loginsucc: req.session["jnfhLogin" + uname]
+            loginsucc: req.session["jnfhLogin" + uid]
         });
     }else{
         res.redirect('/');

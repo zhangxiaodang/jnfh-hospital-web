@@ -33,8 +33,7 @@ var MaterialTable = function () {
             "ajax":function (data, callback, settings) {
                 var formData = $(".inquiry-form").getFormData();
                 var da = {
-                    uid: formData.materialid,
-                    uname: formData.materialname,
+                    mname: formData.mname,
                     currentpage: (data.start / data.length) + 1,
                     pagesize: data.length == -1 ? "": data.length,
                     startindex: data.start,
@@ -69,7 +68,7 @@ var MaterialTable = function () {
                 {
                     "targets": [4],
                     "render": function (data, type, row, meta) {
-                        return '<img src="' + data + '">';
+                        return '<img src="' + data + '" style="width:100px;">';
                     }
                 },
                 {
@@ -177,6 +176,7 @@ var MaterialEdit = function() {
             btnDisable($('#register-btn'));
             if ($('.register-form').validate().form()) {
                 var material = $('.register-form').getFormData();
+                material.muid = localStorage.getItem("uid") || "";
                 //先上传文件
                 var oldimage = $("input[name=oldimage]").val();
                 if(material.maddr !== oldimage) {
@@ -239,8 +239,9 @@ var MaterialEdit = function() {
                 .removeAttr("checked")
                 .removeAttr("selected");
             var exclude = [];
-            var row = $(this).parents('tr')[0];
-            var mid = $("#material_table").dataTable().fnGetData(row).mid;
+            var row = $("#material_table .checkboxes:checked").parents("tr")[0];
+            var rowData = $("#material_table").dataTable().fnGetData(row);
+            var mid = rowData.mid;
             var material = new Object();
             for(var i=0; i < materialList.length; i++){
                 if(mid == materialList[i].mid){
@@ -274,7 +275,9 @@ var MaterialEdit = function() {
             var material = $('.share-form').getFormData();
             material.devlist = [];
             $("#device_table .checkboxes:checked").parents("td").each(function () {
-                material.devlist.push($(this).siblings().eq(1).text());
+                var row = $("#device_table .checkboxes:checked").parents("tr")[0];
+                var rowData = $("#device_table").dataTable().fnGetData(row);
+                material.devlist.push(rowData.devno);
             });
             materialShare(material);
         });
@@ -282,6 +285,7 @@ var MaterialEdit = function() {
         //素材详情
         $('#material_table').on('click', '#op_detail', function (e) {
             e.preventDefault();
+            var exclude = [];
             var row = $(this).parents('tr')[0];
             var mid = $("#material_table").dataTable().fnGetData(row).mid;
             var material = new Object();
@@ -290,11 +294,12 @@ var MaterialEdit = function() {
                     material = materialList[i];
                 }
             }
+            material.mtime = dateTimeFormat(material.mtime);
             var options = { jsonValue: material, exclude:exclude,isDebug: false};
             $(".detail-form").initForm(options);
-            $(".detail-form").find("input[name=maddr]").attr("src", material.maddr);
+            $(".detail-form").find("img[name=maddr]").attr("src", material.maddr);
             $("#devlist").text(material.devlist.join(","));
-            $('#edit_device').modal('show');
+            $('#detail_material').modal('show');
         });
     };
     return {
@@ -392,8 +397,10 @@ var MaterialDelete = function() {
             //先删除服务器上的文件
             var materiallist = {midlist:[], mname:[]};
             $("#material_table .checkboxes:checked").parents("td").each(function () {
-                materiallist.midlist.push($(this).siblings().eq(1).text());
-                var addr = $(this).siblings().eq(3).text();
+                var row = $(this).parents('tr')[0];     //通过获取该td所在的tr，即td的父级元素，取出第一列序号元素
+                var rowData = $("#material_table").dataTable().fnGetData(row);
+                materiallist.midlist.push(rowData.mid);
+                var addr = rowData.maddr;
                 materiallist.mname.push(addr.substr(addr.lastIndexOf("/") + 1));
             });
             $.ajax({

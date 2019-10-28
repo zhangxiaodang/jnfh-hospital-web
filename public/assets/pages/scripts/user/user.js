@@ -162,11 +162,11 @@ var UserEdit = function() {
             btnDisable($('#register-btn'));
             if ($('.register-form').validate().form()) {
                 var user = $('.register-form').getFormData();
-            }
-            if($("input[name=edittype]").val() == USERADD){
-                userAdd(user);
-            }else {
-                userEdit(user);
+                if($("input[name=edittype]").val() == USERADD){
+                    userAdd(user);
+                }else {
+                    userEdit(user);
+                }
             }
         });
         //新增用户
