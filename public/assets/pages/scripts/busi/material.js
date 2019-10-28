@@ -395,13 +395,13 @@ var MaterialDelete = function() {
     return{
         deleteMaterial: function(){
             //先删除服务器上的文件
-            var materiallist = {midlist:[], mname:[]};
+            var materiallist = {midlist:[], mnamelist:[]};
             $("#material_table .checkboxes:checked").parents("td").each(function () {
                 var row = $(this).parents('tr')[0];     //通过获取该td所在的tr，即td的父级元素，取出第一列序号元素
                 var rowData = $("#material_table").dataTable().fnGetData(row);
                 materiallist.midlist.push(rowData.mid);
                 var addr = rowData.maddr;
-                materiallist.mname.push(addr.substr(addr.lastIndexOf("/") + 1));
+                materiallist.mnamelist.push(addr.substr(addr.lastIndexOf("/") + 1));
             });
             $.ajax({
                 type: 'POST',

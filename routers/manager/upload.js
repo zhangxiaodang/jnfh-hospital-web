@@ -89,8 +89,8 @@ router.post('/delete', function(req, res, next){
     console.info(filelist);
     var result;
     try{
-        for(var i=0; i< filelist.mname.length; i++){
-            var path = uploadFolder + "/" +filelist.mname[i];
+        for(var i=0; i< filelist.mnamelist.length; i++){
+            var path = uploadFolder + "/" +filelist.mnamelist [i];
             if(fs.existsSync(path)){
                 fs.unlinkSync(path);
             }
