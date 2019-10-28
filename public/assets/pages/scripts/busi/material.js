@@ -278,7 +278,7 @@ var MaterialEdit = function() {
             var material = $('.share-form').getFormData();
             material.devlist = [];
             $("#device_table .checkboxes:checked").parents("td").each(function () {
-                var row = $("#device_table .checkboxes:checked").parents("tr")[0];
+                var row = $(this).parents("tr")[0];
                 var rowData = $("#device_table").dataTable().fnGetData(row);
                 material.devlist.push(rowData.devno);
             });
