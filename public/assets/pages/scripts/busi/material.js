@@ -232,7 +232,10 @@ var MaterialEdit = function() {
         $('#op_share').click(function() {
             var len = $("#material_table .checkboxes:checked").length;
             if(len < 1){
-                alertDialog("至少选中一项！");
+                alertDialog("请选中一项素材进行共享！");
+                return;
+            }else if(len > 1){
+                alertDialog("最多只能选中一项素材进行共享！");
                 return;
             }
             $(":input",".share-form").not(":button,:reset,:submit,:radio").val("")
