@@ -258,7 +258,7 @@ var MaterialEdit = function() {
             var nTrs = table.fnGetNodes();
             for(var i = 0; i < nTrs.length; i++){
                 var devno = table.fnGetData(nTrs[i]).devno;
-                for(var j=0; i<material.devlist.length; j++){
+                for(var j=0; j<material.devlist.length; j++){
                     if(devno === material.devlist[j]){
                         jQuery(nTrs[i]).find("input[type=checkbox]").prop("checked", true);
                         jQuery(nTrs[i]).addClass("active");
