@@ -406,22 +406,7 @@ var MaterialDelete = function() {
                 var addr = rowData.maddr;
                 materiallist.mnamelist.push(addr.substr(addr.lastIndexOf("/") + 1));
             });
-            $.ajax({
-                type: 'POST',
-                url: '/upload/delete',
-                data: materiallist,
-                dataType: 'json',
-                success: function (result) {
-                    if (result.ret) {
-                        materialDelete(materiallist);
-                    } else {
-                        alertDialog(result.msg);
-                    }
-                },
-                error: function (ex) {
-                    alertDialog("删除素材失败！");
-                }
-            });
+            materialDelete(materiallist);
         }
     }
 }();
@@ -467,6 +452,26 @@ function materialInfoEditEnd(flg, result, type){
             alert = result.retmsg;
         }
         if (result && result.retcode == SUCCESS) {
+            if(type === MATERIALDELETE){
+                //删除文件
+                var materiallist = {midlist:[], mnamelist:[]};
+                $("#material_table .checkboxes:checked").parents("td").each(function () {
+                    var row = $(this).parents('tr')[0];     //通过获取该td所在的tr，即td的父级元素，取出第一列序号元素
+                    var rowData = $("#material_table").dataTable().fnGetData(row);
+                    materiallist.midlist.push(rowData.mid);
+                    var addr = rowData.maddr;
+                    materiallist.mnamelist.push(addr.substr(addr.lastIndexOf("/") + 1));
+                });
+                $.ajax({
+                    type: 'POST',
+                    url: '/upload/delete',
+                    data: materiallist,
+                    dataType: 'json',
+                    async: false,
+                    success: function (result) {},
+                    error: function (ex) {}
+                });
+            }
             res = "成功";
             MaterialTable.init();
             $('#edit_material').modal('hide');
