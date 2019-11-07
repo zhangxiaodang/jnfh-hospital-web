@@ -48,6 +48,8 @@ var DeviceTable = function () {
                 { "data": null},
                 { "data": null},
                 { "data": "devno" },
+                { "data": "area" },
+                { "data": "department" },
                 { "data": "bedno" },
                 { "data": "ip" },
                 { "data": "online" },
@@ -69,7 +71,7 @@ var DeviceTable = function () {
                     }
                 },
                 {
-                    "targets": [5],
+                    "targets": [7],
                     "data": null,
                     "render": function (data, type, row, meta) {
                         var online = "离线";
@@ -78,7 +80,7 @@ var DeviceTable = function () {
                     }
                 },
                 {
-                    "targets": [6],
+                    "targets": [8],
                     "data": null,
                     "render": function (data, type, row, meta) {
                         var disable = "否";
@@ -87,7 +89,7 @@ var DeviceTable = function () {
                     }
                 },
                 {
-                    "targets": [7],
+                    "targets": [9],
                     "render": function (data, type, row, meta) {
                         return '<a href="javascript:;" id="op_edit">编辑</a> | <a href="javascript:;" id="bed_bind">终端绑定</a>';
                     }
@@ -349,7 +351,7 @@ var DeviceDelete = function() {
             var devicelist = {devnolist:[]};
             $(".checkboxes:checked").parents("td").each(function () {
                 var row = $(this).parents('tr')[0];     //通过获取该td所在的tr，即td的父级元素，取出第一列序号元素
-                var rowData = $("#material_table").dataTable().fnGetData(row);
+                var rowData = $("#device_table").dataTable().fnGetData(row);
                 devicelist.devnolist.push(rowData.devno);
             });
             deviceDelete(devicelist);
