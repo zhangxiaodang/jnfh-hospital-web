@@ -349,7 +349,7 @@ var DeviceDelete = function() {
             var devicelist = {devnolist:[]};
             $(".checkboxes:checked").parents("td").each(function () {
                 var row = $(this).parents('tr')[0];     //通过获取该td所在的tr，即td的父级元素，取出第一列序号元素
-                var rowData = $("#material_table").dataTable().fnGetData(row);
+                var rowData = $("#device_table").dataTable().fnGetData(row);
                 devicelist.devnolist.push(rowData.devno);
             });
             deviceDelete(devicelist);
